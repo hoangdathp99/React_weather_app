@@ -1,0 +1,13 @@
+nav {
+  margin: 10px;
+  a {
+    text-decoration: none;
+    // padding: 20px;
+    margin: 20px;
+    font-weight: 700;
+    color: #6d7783;
+  }
+  .nav--active {
+    text-decoration: underline;
+  }
+}
