@@ -9,6 +9,7 @@ export default function Search({ props }) {
   };
 
   const handleButtonClick = () => {
+    //send input city name to App component
     if (currentCity.trim() === "") return;
     props(currentCity);
   };
@@ -29,9 +30,6 @@ export default function Search({ props }) {
           placeholder="search"
         ></input>
       </div>
-      {/* <button className="S_btn" onClick={handleButtonClick}>
-        Search
-      </button> */}
     </div>
   );
 }

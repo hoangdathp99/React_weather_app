@@ -1,7 +1,6 @@
 import React from "react";
 import "../css/detailWeek.scss";
 export default function DetailWeatherWeek({ weatherInfo, date }) {
-  console.log(date);
   return (
     <div className="DetailWeek">
       <div className="Container">

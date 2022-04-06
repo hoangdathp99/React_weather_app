@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "../css/weekWeather.scss";
-import DetailWeatherWeek from "./detailWeatheronWeek";
 export default function WeekWeather({
   weatherInfo,
   date,

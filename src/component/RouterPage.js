@@ -1,11 +1,10 @@
-import React, { useRef } from "react";
-import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import "../css/Router.scss";
 import DetailWeather from "./detailWeather";
 import WeatherAndForecast from "./ForeCast";
 export default function RouterPage({ weatherInfo, location, props }) {
   return (
-    // <div>ALO</div>
     <div className="title">
       <BrowserRouter>
         <nav id="nav">
@@ -26,10 +25,6 @@ export default function RouterPage({ weatherInfo, location, props }) {
           >
             Week
           </NavLink>
-
-          {/* <Link id="link2" to="week">
-            Week
-          </Link> */}
         </nav>
         <Routes>
           <Route
@@ -43,7 +38,6 @@ export default function RouterPage({ weatherInfo, location, props }) {
                 weatherInfo={weatherInfo}
                 location={location}
                 dtToDates={props}
-                // reload={true}
               />
             }
           />

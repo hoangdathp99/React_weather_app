@@ -4,7 +4,6 @@ import getWeaterdetail from "./api/openweather";
 import getAddressOfCoord from "./api/reverse_opencage";
 import Current from "./component/currentWeater";
 import Header from "./component/header";
-// import getDateForeCast from "./component/getDateForeCast";
 import RouterPage from "./component/RouterPage";
 import "./css/App.scss";
 function App() {
@@ -12,9 +11,12 @@ function App() {
   const [location, setLocation] = useState({});
   const [coordinates, setCoordinates] = useState({});
   const [weatherForecast, setWeatherForecast] = useState({});
+
+  //Get current location
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
+        //set city name sync 2 api call
         getAddressOfCoord(position.coords.latitude, position.coords.longitude)
           .then((res) => {
             setLocation({
@@ -32,15 +34,17 @@ function App() {
       });
     }
   }, []);
+
+  //Get weather detail
   useEffect(() => {
     if (Object.keys(coordinates).length === 0) return;
 
     getWeaterdetail(coordinates).then((res) => {
       setWeatherForecast(res.data);
     });
-    console.log(coordinates);
-    console.log(location);
   }, [coordinates]);
+
+  //Get weather by search city name
   useEffect(() => {
     if (address === "") return;
 
@@ -50,7 +54,6 @@ function App() {
         (res.data.results[0].components.city === undefined &&
           res.data.results[0].components.town === undefined)
       ) {
-        console.log("no address");
         return;
       }
 
@@ -62,42 +65,14 @@ function App() {
       });
     });
   }, [address]);
+
+  //prop this function to search component to get city name
   const searhCity = (value) => {
     SetAddress(value);
-    console.log(value);
   };
 
   //build day on weeks
-  // const date = dateBuilder(new Date());
 
-  // function dateBuilder(d) {
-  //   const days = [
-  //     "Chủ Nhật",
-  //     "Thứ 2",
-  //     "Thứ 3",
-  //     "Thứ 4",
-  //     "Thứ 5",
-  //     "Thứ 6",
-  //     "Thứ 7",
-  //   ];
-
-  //   const date = [];
-
-  //   for (let count = 0; count < 5; count++) {
-  //     if (d.getDay() + count < 7) date[count] = d.getDay();
-  //     else if (d.getDay() + count === 7) date[count] = 0;
-  //     else if (d.getDay() + count === 8) date[count] = 1;
-  //     else if (d.getDay() + count === 9) date[count] = 2;
-  //     else if (d.getDay() + count === 10) date[count] = 3;
-  //   }
-  //   return [
-  //     days[date[0]],
-  //     days[date[1]],
-  //     days[date[2]],
-  //     days[date[3]],
-  //     days[date[4]],
-  //   ];
-  // }
   const dtToDate = (dt) => {
     var d = new Date(dt * 1000);
     const days = [
@@ -109,8 +84,6 @@ function App() {
       "Thứ 6",
       "Thứ 7",
     ];
-    // console.log(d, dt);
-    // console.log(days[d.getDay()]);
     return {
       day: days[d.getDay()],
       date: d.getDate(),
@@ -126,14 +99,11 @@ function App() {
           <div className="wrap">
             <Header props={searhCity}></Header>
             {Object.keys(weatherForecast).length !== 0 ? (
-              (console.log(weatherForecast),
-              (
-                <Current
-                  weatherInfo={weatherForecast}
-                  location={location}
-                  date={dtToDate(weatherForecast.current.dt)}
-                />
-              ))
+              <Current
+                weatherInfo={weatherForecast}
+                location={location}
+                date={dtToDate(weatherForecast.current.dt)}
+              />
             ) : (
               <div></div>
             )}
@@ -141,33 +111,15 @@ function App() {
         </div>
         <div className="detail">
           <div className="wrap">
-            {/* <RouterPage
-              weatherInfo={weatherForecast}
-              location={location}
-              date={date}
-            /> */}
             {Object.keys(weatherForecast).length !== 0 ? (
-              (console.log(weatherForecast),
-              (
-                <RouterPage
-                  weatherInfo={weatherForecast}
-                  location={location}
-                  props={dtToDate}
-                />
-              ))
+              <RouterPage
+                weatherInfo={weatherForecast}
+                location={location}
+                props={dtToDate}
+              />
             ) : (
               <div></div>
             )}
-            {/* <div className="weather-day">
-              {Object.keys(weatherForecast).length !== 0 ? (
-                <WeatherAndForecast
-                  weatherInfo={weatherForecast}
-                  location={location}
-                />
-              ) : (
-                <div />
-              )}
-            </div> */}
           </div>
         </div>
       </div>

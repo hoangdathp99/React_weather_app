@@ -1,16 +1,13 @@
 .App {
   max-width: 1140px;
   align-items: center;
-  height: 90vh;
-  // position: absolute;
-  overflow: scroll;
   width: 100%;
-  padding: 0 15px;
+  padding: 15px 15px;
   margin: auto;
 }
 .row {
   display: flex;
-  // flex-wrap: wrap;
+  overflow: overlay;
 }
 .summary {
   background-color: white;

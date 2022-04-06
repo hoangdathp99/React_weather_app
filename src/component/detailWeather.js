@@ -1,8 +1,8 @@
 import React from "react";
-import "../css/detailWeather.scss";
-import { FiSun, FiWind, FiEye } from "react-icons/fi";
-import { WiHumidity } from "react-icons/wi";
 import { IconContext } from "react-icons";
+import { FiEye, FiSun, FiWind } from "react-icons/fi";
+import { WiHumidity } from "react-icons/wi";
+import "../css/detailWeather.scss";
 export default function DetailWeather({ weatherInfo }) {
   return (
     <div className="container">

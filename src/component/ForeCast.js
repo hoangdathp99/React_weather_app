@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import Current from "./currentWeater";
 import DetailWeatherWeek from "./detailWeatheronWeek";
 import WeekWeather from "./WeekWeather";
-
-// import "../styles/WeatherAndForecast.css";
 
 function WeatherAndForecast({ weatherInfo, dtToDates }) {
   const [detailData, setDetailData] = useState({});
   const [date, setDate] = useState({});
-  const initialState = {};
+
+  //set default detail data when research city
   const getDetailData = (value1, value2) => {
     setDetailData(value1);
     setDate(value2);
