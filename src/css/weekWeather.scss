@@ -1,11 +1,8 @@
 .WeatherAndForecast__container {
-  .row {
-  }
   .col {
     padding: 10px;
     box-sizing: border-box;
     text-align: center;
-    // height: 100%;
     .wrap {
       background-color: white;
       border-radius: 15px;
@@ -15,6 +12,9 @@
       flex-direction: column;
       height: 100%;
       box-sizing: border-box;
+    }
+    .active {
+      background-color: rgb(194, 192, 192);
     }
   }
 }

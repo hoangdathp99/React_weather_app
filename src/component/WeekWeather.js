@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import "../css/weekWeather.scss";
-export default function WeekWeather({
+function WeekWeather({
   weatherInfo,
   date,
   getDetailData,
   defaultInfo,
   defaultDate,
+  handleClickActive,
+  activeIndex,
+  index,
 }) {
   const handleButtonClick = () => {
     getDetailData(weatherInfo, date);
+    handleClickActive(index);
   };
   useEffect(() => {
     getDetailData(defaultInfo, defaultDate);
@@ -16,7 +20,10 @@ export default function WeekWeather({
 
   return (
     <div className="col">
-      <div className="wrap" onClick={handleButtonClick}>
+      <div
+        className={activeIndex === index ? "wrap active" : "wrap"}
+        onClick={handleButtonClick}
+      >
         <div className="Forecast__day">
           {date.day} {date.date}/{date.month}
         </div>
@@ -43,3 +50,4 @@ export default function WeekWeather({
     </div>
   );
 }
+export default WeekWeather;

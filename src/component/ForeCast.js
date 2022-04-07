@@ -5,11 +5,14 @@ import WeekWeather from "./WeekWeather";
 function WeatherAndForecast({ weatherInfo, dtToDates }) {
   const [detailData, setDetailData] = useState({});
   const [date, setDate] = useState({});
-
+  const [activeIndex, setActiveIndex] = useState();
   //set default detail data when research city
   const getDetailData = (value1, value2) => {
     setDetailData(value1);
     setDate(value2);
+  };
+  const handleClickActive = (index) => {
+    setActiveIndex(index);
   };
 
   return (
@@ -19,6 +22,9 @@ function WeatherAndForecast({ weatherInfo, dtToDates }) {
           {weatherInfo.daily.map((weatherdaily, index) => {
             return (
               <WeekWeather
+                handleClickActive={handleClickActive}
+                activeIndex={activeIndex}
+                index={index}
                 key={index}
                 weatherInfo={weatherdaily}
                 date={dtToDates(weatherdaily.dt)}
