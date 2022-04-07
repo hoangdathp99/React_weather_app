@@ -29,6 +29,32 @@ code {
   color: rgb(0 0 0 / 26%) !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* width: 0px; */
+  border-radius: 15px;
+  
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  
+  background: #555;
+  transition: 1s;
+}
+
 @media only screen and (max-width: 768px) {
   #root,
   .res {

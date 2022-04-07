@@ -16,9 +16,10 @@ function WeatherAndForecast({ weatherInfo, dtToDates }) {
     <div className="WeatherAndForecast">
       <div className="WeatherAndForecast__container">
         <div className="row">
-          {weatherInfo.daily.map((weatherdaily) => {
+          {weatherInfo.daily.map((weatherdaily, index) => {
             return (
               <WeekWeather
+                key={index}
                 weatherInfo={weatherdaily}
                 date={dtToDates(weatherdaily.dt)}
                 getDetailData={getDetailData}
