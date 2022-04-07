@@ -69,23 +69,25 @@ function App() {
   useEffect(() => {
     if (address === "") return;
     setContentState("loading");
-    getCoordOfAddress(address).then((res) => {
-      if (
-        res.data.results.lenght === 0 ||
-        (res.data.results[0].components.city === undefined &&
-          res.data.results[0].components.town === undefined)
-      ) {
-        showWarning();
-        return;
-      }
+    getCoordOfAddress(address)
+      .then((res) => {
+        if (
+          res.data.results.lenght === 0 ||
+          (res.data.results[0].components.city === undefined &&
+            res.data.results[0].components.town === undefined)
+        ) {
+          showWarning();
+          return;
+        }
 
-      setCoordinates(res.data.results[0].geometry);
-      setLocation({
-        city: res.data.results[0].components.city,
-        state: res.data.results[0].components.state,
-        country: res.data.results[0].components.country,
-      });
-    });
+        setCoordinates(res.data.results[0].geometry);
+        setLocation({
+          city: res.data.results[0].components.city,
+          state: res.data.results[0].components.state,
+          country: res.data.results[0].components.country,
+        });
+      })
+      .catch((error) => showWarning());
   }, [address]);
 
   //prop this function to search component to get city name

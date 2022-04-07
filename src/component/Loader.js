@@ -3,7 +3,7 @@ import "../css/Loading.scss";
 export default function Loader() {
   return (
     <div style={{ margin: "auto" }}>
-      <ReactLoading type="spin" color="cyan" className="loading" />;
+      <ReactLoading type="spin" color="cyan" className="loading" />
     </div>
   );
 }
