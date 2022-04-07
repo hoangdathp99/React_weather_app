@@ -4,19 +4,40 @@ import getWeaterdetail from "./api/openweather";
 import getAddressOfCoord from "./api/reverse_opencage";
 import Current from "./component/currentWeater";
 import Header from "./component/header";
+import Loader from "./component/Loader";
 import RouterPage from "./component/RouterPage";
+import Warnning from "./component/Warning";
 import "./css/App.scss";
 function App() {
+  const [contentState, setContentState] = useState("none");
   const [address, SetAddress] = useState("");
   const [location, setLocation] = useState({});
   const [coordinates, setCoordinates] = useState({});
   const [weatherForecast, setWeatherForecast] = useState({});
 
+  const Main = {
+    none: () => null,
+    loading: () => <Loader />,
+    warning: () => <Warnning />,
+    done: () => (
+      <Current
+        weatherInfo={weatherForecast}
+        location={location}
+        date={dtToDate(weatherForecast.current.dt)}
+      />
+    ),
+  };
+  const showWarning = () => {
+    setContentState("warning");
+    setTimeout(() => setContentState("none"), 3000);
+  };
   //Get current location
   useEffect(() => {
     if (navigator.geolocation) {
+      setContentState("loading");
       navigator.geolocation.getCurrentPosition(function (position) {
         //set city name sync 2 api call
+
         getAddressOfCoord(position.coords.latitude, position.coords.longitude)
           .then((res) => {
             setLocation({
@@ -24,13 +45,12 @@ function App() {
               state: res.data.results[0].components.state,
               country: res.data.results[0].components.country,
             });
-          })
-          .then((res) => {
             setCoordinates({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
-          });
+          })
+          .catch((error) => console.log(error));
       });
     }
   }, []);
@@ -41,19 +61,21 @@ function App() {
 
     getWeaterdetail(coordinates).then((res) => {
       setWeatherForecast(res.data);
+      setContentState("done");
     });
   }, [coordinates]);
 
   //Get weather by search city name
   useEffect(() => {
     if (address === "") return;
-
+    setContentState("loading");
     getCoordOfAddress(address).then((res) => {
       if (
         res.data.results.lenght === 0 ||
         (res.data.results[0].components.city === undefined &&
           res.data.results[0].components.town === undefined)
       ) {
+        showWarning();
         return;
       }
 
@@ -98,15 +120,7 @@ function App() {
         <div className="summary">
           <div className="wrap">
             <Header props={searhCity}></Header>
-            {Object.keys(weatherForecast).length !== 0 ? (
-              <Current
-                weatherInfo={weatherForecast}
-                location={location}
-                date={dtToDate(weatherForecast.current.dt)}
-              />
-            ) : (
-              <div></div>
-            )}
+            {Main[contentState]()}
           </div>
         </div>
         <div className="detail">
