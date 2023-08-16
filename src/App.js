@@ -74,7 +74,7 @@ function App() {
         if (
           res.data.results.lenght === 0 ||
           (res.data.results[0].components.city === undefined &&
-            res.data.results[0].components.town === undefined)
+            res.data.results[0].components.state === undefined)
         ) {
           showWarning();
           return;
@@ -82,7 +82,7 @@ function App() {
 
         setCoordinates(res.data.results[0].geometry);
         setLocation({
-          city: res.data.results[0].components.city,
+          city: res.data.results[0].components.city || res.data.results[0].components.state,
           state: res.data.results[0].components.state,
           country: res.data.results[0].components.country,
         });
