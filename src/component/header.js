@@ -3,7 +3,7 @@ import Search from "./search";
 export default function Header({ props }) {
   return (
     <header>
-      <h1>Weather App</h1>
+      <h1>Weather App After Deploy</h1>
       <Search props={props}></Search>
     </header>
   );
