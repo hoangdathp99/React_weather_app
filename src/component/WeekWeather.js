@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import "../css/weekWeather.scss";
 function WeekWeather({
   weatherInfo,
@@ -16,7 +16,7 @@ function WeekWeather({
   };
   useEffect(() => {
     getDetailData(defaultInfo, defaultDate);
-  }, [defaultInfo]);
+  }, [defaultInfo, defaultDate, getDetailData]);
 
   return (
     <div className="col">

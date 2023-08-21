@@ -6,6 +6,7 @@ export default function Current({ weatherInfo, location, date }) {
       <div className="info">
         <div className="image">
           <img
+            alt="test"
             className="icon"
             src={
               "https://openweathermap.org/img/wn/" +
