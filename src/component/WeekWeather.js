@@ -14,9 +14,10 @@ function WeekWeather({
     getDetailData(weatherInfo, date);
     handleClickActive(index);
   };
-  useEffect(() => {
+  
+  useEffect(() => { 
     getDetailData(defaultInfo, defaultDate);
-  }, [defaultInfo, defaultDate, getDetailData]);
+  }, []); // eslint-disable-line
 
   return (
     <div className="col">
