@@ -1,18 +1,24 @@
-import React, { useState } from "react";
-import DetailWeatherWeek from "./detailWeatheronWeek";
+import React, { useEffect, useState } from "react";
 import WeekWeather from "./WeekWeather";
+import DetailWeatherWeek from "./detailWeatheronWeek";
 
 function WeatherAndForecast({ weatherInfo, dtToDates }) {
   const [detailData, setDetailData] = useState({});
   const [date, setDate] = useState({});
   const [activeIndex, setActiveIndex] = useState();
   //set default detail data when research city
+
   const getDetailData = (value1, value2) => {
     setDetailData(value1);
     setDate(value2);
   };
+  useEffect(()=>{
+    getDetailData(weatherInfo.daily[0],dtToDates(weatherInfo.daily[0].dt))
+    setActiveIndex(0)
+  },[weatherInfo,dtToDates])
   const handleClickActive = (index) => {
     setActiveIndex(index);
+    getDetailData(weatherInfo.daily[index],dtToDates(weatherInfo.daily[index].dt))
   };
 
   return (
@@ -28,9 +34,6 @@ function WeatherAndForecast({ weatherInfo, dtToDates }) {
                 key={index}
                 weatherInfo={weatherdaily}
                 date={dtToDates(weatherdaily.dt)}
-                getDetailData={getDetailData}
-                defaultInfo={weatherInfo.daily[0]}
-                defaultDate={dtToDates(weatherInfo.daily[0].dt)}
               />
             );
           })}

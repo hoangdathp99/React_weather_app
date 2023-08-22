@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import getCoordOfAddress from "./api/opencage";
 import getWeaterdetail from "./api/openweather";
 import getAddressOfCoord from "./api/reverse_opencage";
@@ -97,7 +97,7 @@ function App() {
 
   //build day on weeks
 
-  const dtToDate = (dt) => {
+  const dtToDate = useCallback((dt) => {
     var d = new Date(dt * 1000);
     const days = [
       "Chủ Nhật",
@@ -115,7 +115,7 @@ function App() {
       hour: d.getHours(),
       minutes: d.getMinutes(),
     };
-  };
+  },[]);
   return (
     <div className="App">
       <div className="row">

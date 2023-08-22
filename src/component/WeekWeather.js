@@ -1,24 +1,16 @@
-import React, { useEffect } from "react";
+import React, { memo } from "react";
 import "../css/weekWeather.scss";
 function WeekWeather({
   weatherInfo,
   date,
-  getDetailData,
-  defaultInfo,
-  defaultDate,
   handleClickActive,
   activeIndex,
   index,
 }) {
   const handleButtonClick = () => {
-    getDetailData(weatherInfo, date);
     handleClickActive(index);
   };
   
-  useEffect(() => { 
-    getDetailData(defaultInfo, defaultDate);
-  }, []); // eslint-disable-line
-
   return (
     <div className="col">
       <div
@@ -51,4 +43,4 @@ function WeekWeather({
     </div>
   );
 }
-export default WeekWeather;
+export default memo(WeekWeather);
